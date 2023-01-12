@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:padding="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        image {
+
+        }
+
+        html, body {
+            padding: 0px;
+            margin: 0px;
+            background: white;
+
+        }
+
+
+        .menu {
+            max-width: 100%;
+            height: auto;
+            overflow:hidden
+        }
+        .frame{
+            float:left;
+            width: 30%;
+            height: 30%;
+            margin: 22px;
+            border: 1px solid black;
+            background: wheat;
+        }
+        .pad{
+            padding: 10pt;
+        }
+
+        input{
+            margin: 2pt;
+            margin-left: 4pt;
+            color: wheat; background: black;
+        }
+
+
+    </style>
+</head>
+
+
+<body>
+
+<heder>
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/movieSession/list">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cart</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="hasAuthority('write')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/admin">ADMIN TOOLS</a>
+                    </li>
+                </ul>
+
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Поиск">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <authorize access="isAuthenticated()">
+                        <a class="nav-link" href="#">Login</a>
+                    </authorize>
+                    <a class="nav-link" href="#">logout</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+</heder>
+
+
+<!--<div class="menu">-->
+<!--    <form th:method="GET" th:action="@{/product/add}" >-->
+<!--        <input type="submit" value="Add new product" STYLE="color: wheat; background: black; margin: 10pt"/>-->
+<!--    </form>-->
+<!--<div th:each="place: ${places}" class="frame" >-->
+
+<!--    <form th:method="POST" th:action="@{/product/delete/{id}(id = ${product.getId()})}">-->
+<!--        <input type="submit" value="Delete" STYLE="color: wheat; background: black;" />-->
+<!--    </form>-->
+<!--</div>-->
+<!--</div>-->
+
+<div class="row justify-content-center mb-3 mt-3">
+    <div class="col-auto">
+        <table class="table table-responsive">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">ROW</th>
+                <th scope="col">Place</th>
+                <th scope="col">PRICE</th>
+                <th scope="col">Buy</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="place: ${places}">
+                <td scope="row" th:text="${place.getRow()}"/>
+                <td scope="row" th:text="${place.getPlace()}"/>
+                <td scope="row" th:text="${place.getPrice()}"/>
+                <td scope="row">
+                    <form id="add" action="#" method="get" >
+                    <button type="submit" value="Add to cart" STYLE="color: wheat; background: black;">Buy</button>
+                </form>
+                </td>
+
+                <td scope="row">
+                    <form th:method="POST" th:action="@{/place/delete/{id}(id = ${place.getId()})}">
+                        <input type="submit" value="Delete" STYLE="color: wheat; background: black;" />
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

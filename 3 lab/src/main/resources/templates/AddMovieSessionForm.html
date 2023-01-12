@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .lab{
+            display: flex;
+            flex-direction:column;
+            padding: 2pt;
+        }
+
+        input, label{
+            display:block;
+        }
+        label{
+            padding: 5pt;
+            font-size: 15pt;
+        }
+
+        input {
+            width:  600px;
+            height: 30px;
+            padding: 5px 10px 5px 10px;
+            border:1px solid #999;
+            font-size:16px;
+            font-family: Tahoma;
+        }
+
+        .inputButtom{
+            border:1px solid #999;
+
+        }
+        .modal{
+            padding: 50px;
+            background: #ccc;
+            border: 1px solid black;
+        }
+        .menu {
+            max-width: 100%;
+            height: auto;
+            overflow:hidden;
+            border: 1px solid black;
+            padding-left: 300pt;
+            padding-right: 300pt;
+            padding-top: 50pt;
+            padding-bottom: 150pt;
+        }
+        h1{
+            text-align:center ;
+            font-size: 25pt;
+        }
+
+    </style>
+</head>
+<body>
+
+<heder>
+    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/movieSession/list">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cart</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" sec:authorize="hasAuthority('write')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/admin">ADMIN TOOLS</a>
+                    </li>
+                </ul>
+
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Поиск">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <authorize access="isAuthenticated()">
+                        <a class="nav-link" href="#">Login</a>
+                    </authorize>
+                    <a class="nav-link" href="#">logout</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+</heder>
+
+<div class="menu">
+    <form method="post" th:action="@{/movieSession/create}">
+        <h1>Create movie Session</h1>
+        <div class="lab">
+            <label for="duration"> movie Session name</label>
+            <input type="text" placeholder="duration" required="" id="duration" name="duration" />
+        </div>
+
+        <div class="lab">
+            <label for="startOfSession"> movie Session time</label>
+            <input type="text" placeholder="startOfSession" required="" id="startOfSession" name="startOfSession" />
+        </div>
+        <div class="lab">
+            <label for="description">movie Session description</label>
+            <input type="text" placeholder="description" required="" id="description" name="description" />
+        </div>
+        <div class="lab">
+            <label for="imageUrl">movie Session Image Url</label>
+            <input type="text" placeholder="imageUrl" required="" id="imageUrl" name="imgUrl" />
+        </div>
+
+        <div class="lab">
+            <label for="id">movie Session id</label>
+            <input type="text" placeholder="id" required="" id="id" name="id" />
+        </div>
+        <div class="lab">
+            <input type="submit" value="Create" style=" height: 30pt; width: 60pt; border-radius: 10pt; background-color: cornflowerblue; color: white; margin-top: 5pt"/>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
